@@ -29,6 +29,8 @@ public class AssociateImplementation {
 	public Double sum(List<Call> calls) {
 
 		List <Call> sentObjects = calls;
+		
+		
 		int size = sentObjects.size();
 		double sum = 0;
 		
@@ -36,11 +38,13 @@ public class AssociateImplementation {
 		for( int i = 0; i < size; i++ ) {
 			
 			
+			
 			   sum += sentObjects.get(i).getCallTime();
+				
 			   
 		}
 		
-		
+	
 
 		return sum;
 	}
@@ -212,48 +216,54 @@ public class AssociateImplementation {
 		List <Call> sentObjects = calls;
 		int size = sentObjects.size();
 		Map<User, Double> averageCallsPerUser = new HashMap<>();
-		User someUser = new User();
-		double tempDouble = 0;
+		
+		double tempCallTime = 0;
+		double counter = 0;
+		double average = 0;
+		User tempUser = sentObjects.get(0).getUser();
+		int userId = 0;
 		
 		
 		
-		someUser = sentObjects.get(0).getUser();
-		for (int x = 0; x < size +1 ; x++) {
+		for (int x = 0; x < size  ; x++) {
 			
 			
+			userId = sentObjects.get(x).getUser().getId();
 			
 			
-			if( sentObjects.get(x).getUser() == someUser) {averageCallsPerUser.put(someUser, tempDouble);  }
+	//	System.out.println(sentObjects.get(x).getUser().getId()+ " " + sentObjects.get(x).getCallTime() + "\n");
 			
-			
-			  System.out.println(sentObjects.get(x).getUser());
 				
 		
-			for (int y =0; y < size ; y++)
+		for (int y =0; y < size  ; y++) {
 			
 				
 				
-		if( sentObjects.get(y).getUser() == someUser)
+		if( sentObjects.get(y).getUser().getId() == userId) {
 			
-		{averageCallsPerUser.put(someUser, tempDouble + sentObjects.get(y).getCallTime()  ); 
+			tempCallTime +=  sentObjects.get(y).getCallTime();
+			counter++;
+			
+
+		
+		tempUser = sentObjects.get(y).getUser();  
+		}
 		
 		}
-	          //System.out.println(sentObjects.get(y).getCallTime());
-		
-		
-		
+	
+		average = tempCallTime/counter;
+		averageCallsPerUser.put(tempUser, average);
+		tempCallTime =0;
+		counter=0;
 	
 	
 		}
 
+		 System.out.println(averageCallsPerUser);
 		
 		
 		
-		
-		
-		
-		
-		return null;
+		return averageCallsPerUser;
 	}
 
 }
