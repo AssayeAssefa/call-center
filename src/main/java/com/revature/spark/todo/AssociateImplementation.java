@@ -1,5 +1,9 @@
 package com.revature.spark.todo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +27,26 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double sum(List<Call> calls) {
-		return null;
+
+		List <Call> sentObjects = calls;
+		
+		
+		int size = sentObjects.size();
+		double sum = 0;
+		
+		
+		for( int i = 0; i < size; i++ ) {
+			
+			
+			
+			   sum += sentObjects.get(i).getCallTime();
+				
+			   
+		}
+		
+	
+
+		return sum;
 	}
 
 	/**
@@ -33,7 +56,22 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double min(List<Call> calls) {
-		return null;
+
+		List <Call> sentObjects = calls;
+		int size = sentObjects.size();
+		double sum = 1000000;
+		
+		
+		for( int i = 0; i < size; i++ ) {
+			
+			if (sum >  sentObjects.get(i).getCallTime()) {
+	 sum = sentObjects.get(i).getCallTime();
+	 }
+			   
+		}
+			
+		
+		return sum;
 	}
 
 	/**
@@ -43,7 +81,41 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double max(List<Call> calls) {
-		return null;
+		
+		List <Call> sentObjects = calls;
+		int size = sentObjects.size();
+		double sum = 1;
+		   
+		
+		for( int i = 0; i < size; i++ ) {
+			
+			if (sum <  sentObjects.get(i).getCallTime()) {
+	       sum = sentObjects.get(i).getCallTime();
+	       
+	      
+	 }
+			
+		}
+			
+		
+		 
+		
+			
+
+		
+
+		return sum;
+	
+
+
+
+
+
+
+
+
+
+
 	}
 
 	/**
@@ -53,7 +125,26 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double avg(List<Call> calls) {
-		return null;
+		List <Call> sentObjects = calls;
+		double size = sentObjects.size();
+		double sum = 1;
+		   
+		
+		for( int i = 0; i < size; i++ ) {
+			
+			
+			   sum += sentObjects.get(i).getCallTime();
+			   
+			
+		}
+		double temp = sum/size;
+		
+	 long rounded = Math.round(temp);
+		double something = (int) rounded;
+		
+	
+		
+		return something;
 	}
 
 	/**
@@ -63,7 +154,68 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Double median(List<Call> calls) {
-		return null;
+		
+		
+		
+		
+		
+		List <Call> sentObjects = calls;
+		int size = sentObjects.size();
+
+		double[] newarray = new double [size];
+
+		//sentObjects.get(0).getCallTime();
+		
+		 for (int x = 0; x < size ; x++) {
+       	  
+       	  
+       	  
+	         newarray[x] = sentObjects.get(x).getCallTime();
+	        	
+	     	
+	       
+	          }
+		 
+		 
+		 
+		 
+		//bubble sort
+		int n = newarray.length;
+	      double temp = 0;
+
+	      for(int i = 0; i < n; i++) {
+	         for(int j=1; j < (n-i); j++) {
+	            if(newarray[j-1] > newarray[j]) {
+	               temp = newarray[j-1];
+	               newarray[j-1] = newarray[j];
+	               newarray[j] = temp;
+	            }
+	         }
+	      }
+		
+
+		
+		 for (int x = 0; x < size  ; x++) {
+	       	  
+
+	     	
+	       
+	          }
+		 
+		 
+		 double median;
+		 if (newarray.length % 2 == 0)
+		     median = ((double)newarray[newarray.length/2] + (double)newarray[newarray.length/2 - 1])/2;
+		 else
+		     median = (double) newarray[newarray.length/2];
+		
+		    
+
+		return median;
+	
+
+		
+	
 	}
 
 	/**
@@ -75,7 +227,59 @@ public class AssociateImplementation {
 	 * @return
 	 */
 	public Map<User, Double> avgCallTimePerUser(List<Call> calls) {
-		return null;
+		
+		
+		List <Call> sentObjects = calls;
+		int size = sentObjects.size();
+		Map<User, Double> averageCallsPerUser = new HashMap<>();
+		
+		double tempCallTime = 0;
+		double counter = 0;
+		double average = 0;
+		User tempUser = sentObjects.get(0).getUser();
+		int userId = 0;
+		
+		
+		
+		for (int x = 0; x < size  ; x++) {
+			
+			
+			userId = sentObjects.get(x).getUser().getId();
+			
+			
+	//	System.out.println(sentObjects.get(x).getUser().getId()+ " " + sentObjects.get(x).getCallTime() + "\n");
+			
+				
+		
+		for (int y =0; y < size  ; y++) {
+			
+				
+				
+		if( sentObjects.get(y).getUser().getId() == userId) {
+			
+			tempCallTime +=  sentObjects.get(y).getCallTime();
+			counter++;
+			
+
+		
+		tempUser = sentObjects.get(y).getUser();  
+		}
+		
+		}
+	
+		average = tempCallTime/counter;
+		averageCallsPerUser.put(tempUser, average);
+		tempCallTime =0;
+		counter=0;
+	
+	
+		}
+
+		 System.out.println(averageCallsPerUser);
+		
+		
+		
+		return averageCallsPerUser;
 	}
 
 }
